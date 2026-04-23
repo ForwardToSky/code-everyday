@@ -1,6 +1,7 @@
 Installation can take a look on the word document namely, "Prerequisite.docx" located on the same path
 
 sample json value:
+---
 {
   "people": [
     { "id": 1, "name": "Alex", "phoneNumber": "011-4829137", "friends": [2] },
@@ -21,6 +22,7 @@ sample json value:
     { "id": 16, "name": "Quinn", "phoneNumber": "016-5719023", "friends": [] }
   ]
 }
+---
 
 1. Create a Kotlin data class Friend with the following properties:
 
