@@ -6,6 +6,7 @@ class FriendService(private val people: List<Friend>) {
     // BASIC OPERATIONS
     // =========================
 
+    // SELF
     fun getAll(): List<Friend> {
         // TODO:
         // Return all people in the system
@@ -36,6 +37,7 @@ class FriendService(private val people: List<Friend>) {
     // RELATIONSHIP FUNCTIONS
     // =========================
 
+    // GROUP
     fun getDirectFriends(id: Int): List<Friend> {
         // TODO:
         // Step 1: find the person by ID

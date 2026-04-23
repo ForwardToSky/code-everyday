@@ -1,61 +1,100 @@
 package com.example.demo
 
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class FriendServiceTest {
 
-    private val people = MockFriendData.people
+    private lateinit var service: FriendService
+    private lateinit var people: List<Friend>
 
-    private val service = FriendService(people)
+    @BeforeEach
+    fun setup() {
+        people = listOf(
+            Friend(1, "Alex", "011-1111111", listOf(2, 3)),
+            Friend(2, "Ben", "012-2222222", listOf(1, 4)),
+            Friend(3, "Cathy", "013-3333333", listOf(1)),
+            Friend(4, "Diana", "014-4444444", listOf(2)),
+            Friend(5, "Evan", "015-5555555", listOf())
+        )
+
+        service = FriendService(people)
+    }
+
+    // =========================
+    // BASIC OPERATIONS
+    // =========================
 
     @Test
-    fun `direct friends`() {
-        val result = service.getDirectFriends(1)
-        assertEquals(1, result.size)
-        assertEquals("Ben", result[0].name)
+    fun `getAll should return all people`() {
+        val result = service.getAll()
+        assertEquals(5, result.size)
     }
 
     @Test
-    fun `friend of friend`() {
-        val result = service.getFriendOfFriend(1)
-        val names = result.map { it.name }
+    fun `add should insert new friend`() {
+        val newFriend = Friend(6, "Frank", "016-6666666", listOf())
 
-        assertTrue(names.contains("Cathy"))
-        assertFalse(names.contains("Ben"))
-        assertFalse(names.contains("Alex"))
-    }
-
-    @Test
-    fun `not connected`() {
-        val result = service.getNotConnectedPeople(1)
-        val names = result.map { it.name }
-
-        assertTrue(names.contains("Ivan"))
-        assertTrue(names.contains("Quinn"))
-        assertFalse(names.contains("Ben"))
-        assertFalse(names.contains("Cathy"))
-    }
-
-    @Test
-    fun `add friend`() {
-        val newFriend = Friend(100, "Test", "012-0000000", emptyList())
         val result = service.add(newFriend)
 
-        assertTrue(result.any { it.id == 100 })
+        assertEquals(6, result.size)
+        assertTrue(result.any { it.id == 6 })
     }
 
     @Test
-    fun `update friend`() {
-        val updated = Friend(1, "Alex Updated", "011-4829137", listOf(2))
+    fun `update should modify existing friend`() {
+        val updated = Friend(1, "Alex Updated", "011-9999999", listOf(2))
+
         val result = service.update(updated)
 
-        assertEquals("Alex Updated", result.first { it.id == 1 }.name)
+        val found = result.find { it.id == 1 }
+        assertEquals("Alex Updated", found?.name)
+        assertEquals("011-9999999", found?.phoneNumber)
     }
 
     @Test
-    fun `delete friend`() {
+    fun `delete should remove friend by id`() {
         val result = service.delete(1)
+
+        assertEquals(4, result.size)
         assertFalse(result.any { it.id == 1 })
+    }
+
+    // =========================
+    // RELATIONSHIP FUNCTIONS
+    // =========================
+
+    @Test
+    fun `getDirectFriends should return direct connections`() {
+        val result = service.getDirectFriends(1)
+
+        val ids = result.map { it.id }
+        assertEquals(setOf(2, 3), ids.toSet())
+    }
+
+    @Test
+    fun `getFriendOfFriend should return second level connections`() {
+        val result = service.getFriendOfFriend(1)
+
+        val ids = result.map { it.id }
+
+        // Alex -> (2,3)
+        // 2 -> (1,4), 3 -> (1)
+        // Expected: 4 only
+        assertEquals(setOf(4), ids.toSet())
+    }
+
+    @Test
+    fun `getNotConnectedPeople should return unrelated users`() {
+        val result = service.getNotConnectedPeople(1)
+
+        val ids = result.map { it.id }
+
+        // Alex connections:
+        // Direct: 2,3
+        // FoF: 4
+        // Remaining: 5
+        assertEquals(setOf(5), ids.toSet())
     }
 }
