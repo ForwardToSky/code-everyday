@@ -1,6 +1,6 @@
 Installation can take a look on the word document namely, **Prerequisite.docx** located on the same path
 
-sample json value:
+sample json value from **people.json**:
 ```json
 {
   "people": [
@@ -32,15 +32,9 @@ sample json value:
   friends: List<Int>
 ```
 2. Data Handling
+You are able to retrieve, create, update, delete the data from people.json.
 
-Assume all people are stored in a list or map.
-
-You must be able to:
-
-Retrieve a person by their id
-Access their direct friends using the friends list
-
-3. Functions to Implement
+4. Functions to Implement
 
 Implement the following functions:
 
