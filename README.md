@@ -22,7 +22,7 @@ sample json value:
     { "id": 16, "name": "Quinn", "phoneNumber": "016-5719023", "friends": [] }
   ]
 }
----
+```
 
 1. Create a Kotlin data class Friend with the following properties:
 
