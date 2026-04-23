@@ -1,6 +1,6 @@
 Installation can take a look on the word document namely, **Prerequisite.docx** located on the same path
 
-sample json value from **people.json**:
+sample json value:
 ```json
 {
   "people": [
@@ -24,17 +24,10 @@ sample json value from **people.json**:
 }
 ```
 
-1. Create a Kotlin data class Friend with the following properties:
-```
-  id: Int
-  name: String
-  phoneNumber: String
-  friends: List<Int>
-```
-2. Data Handling
-You are able to retrieve, create, update, delete the data from people.json.
+1. Data Handling
+You are able to retrieve, create, update, delete the data from above data.
 
-4. Functions to Implement
+2. Functions to Implement
 
 Implement the following functions:
 
