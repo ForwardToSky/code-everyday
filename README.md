@@ -25,12 +25,12 @@ sample json value:
 ```
 
 1. Create a Kotlin data class Friend with the following properties:
-
-id: Int
-name: String
-phoneNumber: String
-friends: List<Int>
-
+```
+  id: Int
+  name: String
+  phoneNumber: String
+  friends: List<Int>
+```
 2. Data Handling
 
 Assume all people are stored in a list or map.
