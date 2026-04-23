@@ -1,7 +1,7 @@
 Installation can take a look on the word document namely, "Prerequisite.docx" located on the same path
 
 sample json value:
----
+```json
 {
   "people": [
     { "id": 1, "name": "Alex", "phoneNumber": "011-4829137", "friends": [2] },
