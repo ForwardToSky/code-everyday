@@ -1,4 +1,4 @@
-Installation can take a look on the word document namely, "Prerequisite.docx" located on the same path
+Installation can take a look on the word document namely, **Prerequisite.docx** located on the same path
 
 sample json value:
 ```json
